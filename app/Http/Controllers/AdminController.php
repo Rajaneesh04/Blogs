@@ -117,4 +117,38 @@ class AdminController extends Controller
 
         return redirect()->route('admin.blogs.index');
     }
+
+    // User Management Methods
+    public function users()
+    {
+        $users = User::latest()->get();
+        return view('admin.users.index', compact('users'));
+    }
+
+    public function toggleUserActive(User $user)
+    {
+        $user->is_active = !$user->is_active;
+        $user->save();
+
+        return back()->with('success', 'User status updated successfully.');
+    }
+
+    public function deleteUser(User $user)
+    {
+        $user->delete();
+        return back()->with('success', 'User deleted successfully.');
+    }
+
+    // Contact Requests Management
+    public function contactRequests()
+    {
+        $contactSubmissions = ContactSubmission::latest()->get();
+        return view('admin.contact-requests.index', compact('contactSubmissions'));
+    }
+
+    public function deleteContactRequest(ContactSubmission $submission)
+    {
+        $submission->delete();
+        return redirect()->route('admin.contactreq.index')->with('success', 'Contact request deleted successfully.');
+    }
 }

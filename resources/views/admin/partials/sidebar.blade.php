@@ -23,7 +23,7 @@
             Contact
         </a>
 
-        <a href="#"
+        <a href="{{ route('admin.users.index') }}"
            class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 hover:text-white transition">
             Users
         </a>
