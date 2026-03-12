@@ -52,6 +52,18 @@
                     >
                 </div>
 
+                <div class="flex items-center">
+                    <input 
+                        type="checkbox"
+                        name="remember"
+                        id="remember"
+                        class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                    >
+                    <label for="remember" class="ml-2 text-gray-900 text-sm">
+                        Remember me
+                    </label>
+                </div>
+
                 <button class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg shadow-md transition">
                     Login →
                 </button>
