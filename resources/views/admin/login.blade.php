@@ -7,28 +7,30 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class="bg-gradient-to-br from-indigo-900 via-purple-900 to-gray-900 min-h-screen flex items-center justify-center">
+<body class="bg-gray-100 min-h-screen flex items-center justify-center px-4 py-16">
 
-    <div class="bg-white/10 backdrop-blur-xl shadow-2xl rounded-2xl flex overflow-hidden w-[900px]">
+    <div class="bg-white shadow-xl rounded-2xl overflow-hidden max-w-5xl w-full grid md:grid-cols-2">
 
         <!-- Left Side (Branding) -->
-        <div class="hidden md:flex flex-col justify-center items-center w-1/2 bg-gradient-to-br from-indigo-600 to-purple-700 text-white p-10">
+        <div class="bg-green-600 text-white p-10 flex flex-col justify-center">
 
-            <h1 class="text-4xl font-bold mb-4">Welcome Back 👋</h1>
-            <p class="text-lg text-center opacity-90">
+            <h2 class="text-3xl font-bold mb-4">Welcome Back</h2>
+            <p class="mb-6 text-green-100">
                 Manage your blogs, publish content and monitor your platform easily.
             </p>
 
-            <div class="mt-10 text-6xl opacity-40">
-                📝
+            <div class="space-y-4 text-sm">
+                <p>🔐 Admin access</p>
+                <p>📊 Content management</p>
+                <p>� User oversight</p>
             </div>
 
         </div>
 
         <!-- Right Side (Login Form) -->
-        <div class="w-full md:w-1/2 p-10">
+        <div class="p-10">
 
-            <h2 class="text-3xl font-bold mb-6 text-gray-800">Admin Login</h2>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6">Admin Login</h2>
 
             <form action="{{ route('admin.login.post') }}" method="POST" class="space-y-5">
                 @csrf
@@ -38,7 +40,7 @@
                     <input 
                         name="username"
                         placeholder="Enter username"
-                        class="w-full border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 rounded-lg p-3 outline-none transition"
+                        class="w-full border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-300 rounded-lg p-3 outline-none transition"
                     >
                 </div>
 
@@ -48,7 +50,7 @@
                         type="password"
                         name="password"
                         placeholder="Enter password"
-                        class="w-full border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 rounded-lg p-3 outline-none transition"
+                        class="w-full border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-300 rounded-lg p-3 outline-none transition"
                     >
                 </div>
 
@@ -57,14 +59,14 @@
                         type="checkbox"
                         name="remember"
                         id="remember"
-                        class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                        class="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                     >
                     <label for="remember" class="ml-2 text-gray-900 text-sm">
                         Remember me
                     </label>
                 </div>
 
-                <button class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg shadow-md transition">
+                <button class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-lg shadow-md transition">
                     Login →
                 </button>
 
