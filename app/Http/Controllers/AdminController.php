@@ -26,7 +26,7 @@ class AdminController extends Controller
     public function dashboard()
     {
         $blogs = Blog::latest()->take(5)->get();
-        $contactSubmissions = ContactSubmission::latest()->take(10)->get();
+        $contactSubmissions = ContactSubmission::latest()->take(5)->get();
 
         return view('admin.dashboard', [
             'blogs' => $blogs,

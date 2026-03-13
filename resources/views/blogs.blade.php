@@ -64,6 +64,18 @@
                     {{ $blog->short_desc }}
                 </p>
 
+                <!-- Author info -->
+                @if($blog->user)
+                <div class="flex items-center gap-2 mb-4 text-sm text-gray-500">
+                    @if($blog->user->avatar)
+                        <img src="{{ asset('avatars/' . $blog->user->avatar) }}" alt="{{ $blog->user->name }}" class="w-6 h-6 rounded-full">
+                    @else
+                        <img src="https://ui-avatars.com/api/?name={{ urlencode($blog->user->name) }}&size=24&background=0d6efd&color=fff" alt="{{ $blog->user->name }}" class="w-6 h-6 rounded-full">
+                    @endif
+                    <span>By {{ $blog->user->name }}</span>
+                </div>
+                @endif
+
                 <div class="flex items-center justify-between gap-3">
                     
                     <a href="{{ route('blog.show', $blog->id) }}"

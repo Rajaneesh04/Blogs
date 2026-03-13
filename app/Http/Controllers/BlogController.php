@@ -22,7 +22,7 @@ class BlogController extends Controller
 
     public function blogs()
     {
-       $blogs = Blog::with('category')->latest()->get();
+       $blogs = Blog::with(['category', 'user'])->latest()->get();
        $categories = Category::all();
        $likedBlogIds = collect(session('liked_blogs', []))
             ->map(fn ($id) => (int) $id)
@@ -33,7 +33,7 @@ class BlogController extends Controller
 
     public function show($id)
     {
-        $blog = blog::findOrfail($id);
+        $blog = Blog::with(['category', 'user'])->findOrfail($id);
         return view('single',compact('blog'));
     }
 
@@ -114,5 +114,77 @@ class BlogController extends Controller
         $request->session()->put('liked_blogs', array_values(array_unique($likedBlogs)));
 
         return back();
+    }
+
+    public function subscription()
+    {
+        return view('subscription');
+    }
+
+    public function paymentOptions($plan)
+    {
+        $validPlans = ['pro', 'pro-max'];
+        if (!in_array($plan, $validPlans)) {
+            return redirect()->route('subscription')->with('error', 'Invalid plan for payment options.');
+        }
+
+        $planDetails = [
+            'pro' => [
+                'name' => 'Pro',
+                'price' => 19,
+                'features' => ['Unlimited blog post access', 'Exclusive content', 'Priority support', 'Download offline reading']
+            ],
+            'pro-max' => [
+                'name' => 'Pro Max',
+                'price' => 49,
+                'features' => ['Everything in Pro', 'Early access to new features', '24/7 phone support', 'Custom content requests', 'Team collaboration tools']
+            ]
+        ];
+
+        return view('payment-options', [
+            'plan' => $plan,
+            'planDetails' => $planDetails[$plan]
+        ]);
+    }
+
+    public function processSubscription(Request $request, $plan)
+    {
+        // Validate the plan
+        $validPlans = ['free', 'pro', 'pro-max'];
+        if (!in_array($plan, $validPlans)) {
+            return redirect()->route('subscription')->with('error', 'Invalid subscription plan selected.');
+        }
+
+        // Validate payment method for paid plans
+        if ($plan !== 'free') {
+            $request->validate([
+                'payment_method' => 'required|string|in:credit-card,paypal,bank-transfer'
+            ]);
+        }
+
+        // Store subscription info in session (in a real app, this would be saved to database)
+        $subscriptionData = [
+            'plan' => $plan,
+            'plan_name' => ucfirst(str_replace('-', ' ', $plan)),
+            'price' => $plan === 'free' ? 0 : ($plan === 'pro' ? 19 : 49),
+            'payment_method' => $plan === 'free' ? 'none' : $request->payment_method,
+            'subscribed_at' => now(),
+        ];
+
+        session(['subscription' => $subscriptionData]);
+
+        // Redirect to thank you page
+        return redirect()->route('subscription.thank-you')->with('success', 'Subscription successful!');
+    }
+
+    public function subscriptionThankYou()
+    {
+        $subscription = session('subscription');
+        
+        if (!$subscription) {
+            return redirect()->route('subscription');
+        }
+
+        return view('subscription-thank-you', compact('subscription'));
     }
 }

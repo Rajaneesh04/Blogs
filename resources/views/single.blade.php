@@ -23,6 +23,17 @@
                     <span>Published {{ $blog->created_at->format('F d, Y') }}</span>
                     <span class="hidden md:inline">&bull;</span>
                     <span>{{ max(1, ceil(str_word_count(strip_tags($blog->body)) / 200)) }} min read</span>
+                    @if($blog->user)
+                    <span class="hidden md:inline">&bull;</span>
+                    <div class="flex items-center gap-2">
+                        @if($blog->user->avatar)
+                            <img src="{{ asset('avatars/' . $blog->user->avatar) }}" alt="{{ $blog->user->name }}" class="w-5 h-5 rounded-full">
+                        @else
+                            <img src="https://ui-avatars.com/api/?name={{ urlencode($blog->user->name) }}&size=20&background=0d6efd&color=fff" alt="{{ $blog->user->name }}" class="w-5 h-5 rounded-full">
+                        @endif
+                        <span>By {{ $blog->user->name }}</span>
+                    </div>
+                    @endif
                 </div>
             </div>
 
