@@ -1,4 +1,4 @@
-<aside class="hidden md:flex md:w-64 min-h-screen bg-gray-900 text-gray-300 flex-col shadow-lg">
+<aside class="hidden md:flex md:w-64 h-screen bg-gray-900 text-gray-300 flex-col shadow-lg fixed left-0 top-0 z-40">
     <div class="p-6 text-2xl font-bold text-white border-b border-gray-700">
         Admin Panel
     </div>

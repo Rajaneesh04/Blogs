@@ -10,7 +10,7 @@
 <body class="bg-gray-100 overflow-x-hidden">
     <div class="min-h-screen md:flex">
         @include('admin.partials.sidebar')
-        <main class="flex-1 min-w-0 pb-20 md:pb-0">
+        <main class="flex-1 min-w-0 pb-20 md:pb-0 md:ml-64">
             @yield('content')
         </main>
     </div>
