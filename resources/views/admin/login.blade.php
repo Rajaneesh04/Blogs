@@ -36,10 +36,11 @@
                 @csrf
 
                 <div>
-                    <label class="block text-gray-600 mb-1">Username</label>
+                    <label class="block text-gray-600 mb-1">Email</label>
                     <input 
-                        name="username"
-                        placeholder="Enter username"
+                        name="email"
+                        type="email"
+                        placeholder="Enter email"
                         class="w-full border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-300 rounded-lg p-3 outline-none transition"
                     >
                 </div>

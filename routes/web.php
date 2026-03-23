@@ -21,10 +21,6 @@ Route::get('/subscription/payment/{plan}', [BlogController::class, 'paymentOptio
 Route::post('/subscribe/{plan}', [BlogController::class, 'processSubscription'])->name('subscription.process');
 Route::get('/subscription/thank-you', [BlogController::class, 'subscriptionThankYou'])->name('subscription.thank-you');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

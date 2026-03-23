@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Blog;
 use App\Models\ContactSubmission;
 use App\Models\User;
@@ -39,11 +40,23 @@ class AdminController extends Controller
 
     public function checkLogin(Request $req)
     {
-        if($req->username == 'admin' && $req->password == '1234'){
-        session()->put('admin',true);
-        return redirect()->route('admin.dashboard');
-    }
-    return back()->with('error','Invalid Login');
+        $credentials = $req->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            if ($user->role === 'admin') {
+                session()->put('admin', true);
+                session()->put('admin_user_id', $user->id);
+                return redirect()->route('admin.dashboard');
+            }
+            Auth::logout();
+            return back()->with('error', 'Access denied. Admin privileges required.');
+        }
+
+        return back()->with('error', 'Invalid credentials');
     }
 
     public function index()
